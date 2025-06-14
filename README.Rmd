@@ -1,0 +1,95 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# symbiontmodeler
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+The goal of `symbiontmodeler` is to implement various models for [symbiont](https://en.wikipedia.org/wiki/Symbiosis) frequency dynamics. Applications to [wolbachia](https://en.wikipedia.org/wiki/Wolbachia) frequency dynamics are emphasized, but the models are general enough to be applied to other symbionts.  
+
+## Installation
+
+You can install the development version of `symbiontmodeler` from [GitHub](https://github.com/) with:
+
+``` r
+# install.packages("pak")
+pak::pak("jmgraham30/symbiontmodeler")
+```
+
+## Background
+
+
+$$p_{t+1} = \frac{p_{t}F(1 - \mu)}{1 + p_{t}(F - 1 - s_{h}) + p_{t}^{2}s_{h}(1 - \mu F)},$$
+where
+
+* $p_{t}$ is the frequency of symbiont infected females in the population at time $t$,
+
+* $F$ is the relative fecundity of symbiont infected females,
+
+* $\mu$ is the transmission rate, and
+
+* $s_{h}$ is the cytoplasmic incompatibility (CI) rate.
+
+For a finite population of size $N$, the iteration is given by
+
+$$
+\begin{align}
+p_{t+1} &= \frac{p_{t}F(1 - \mu)}{1 + p_{t}(F - 1 - s_{h}) + p_{t}^{2}s_{h}(1 - \mu F)},  \\
+q_{ij} &= \left(\begin{array}{c} N \\ j \end{array}\right)(p^{\ast})^{j}(1 - p^{\ast})^{N - j}. 
+\end{align}
+$$
+
+
+
+## Example
+
+This is a basic example which shows you how to solve a common problem:
+
+```{r example}
+library(symbiontmodeler)
+## basic example code
+```
+
+```{r examp_sims}
+library(ggplot2)
+library(patchwork)
+
+tp_1 <- turelli_simulation(0.4,1.2,0.1,0.0,1000)
+p_1 <- plot_a_simulation(tp_1,alpha_val=0.2) + ylim(c(0,1))
+
+tp_2 <- turelli_simulation(0.4,1.02,0.5,0.0,1000)
+p_2 <- plot_a_simulation(tp_2,alpha_val=1.0) + ylim(c(0,1))
+
+tp_3 <- turelli_simulation(0.1,1.02,0.1,0.8,1000)
+p_3 <- plot_a_simulation(tp_3,alpha_val=0.8) + ylim(c(0,1))
+
+tp_4 <- turelli_simulation(0.3,1.02,0.1,0.8,1000)
+p_4 <- plot_a_simulation(tp_4,alpha_val=0.2) + ylim(c(0,1))
+
+(p_1 + p_2) / (p_3 + p_4)
+```
+
+
+```{r fmu}
+library(latex2exp)
+
+data.frame(x=c(1.0,3.0)) |>
+  ggplot(aes(x=x)) + 
+  geom_function(fun = mu_F_equality, linewidth=1,color="#4988BFFF") + 
+  labs(x = "F", y = TeX("$\\mu$")) + 
+  theme_bw()
+```
+
