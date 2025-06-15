@@ -85,10 +85,13 @@ p_3 <- plot_a_simulation(tp_3,alpha_val=0.8) + ylim(c(0,1))
 tp_4 <- turelli_simulation(0.3,1.02,0.1,0.8,1000)
 p_4 <- plot_a_simulation(tp_4,alpha_val=0.2) + ylim(c(0,1))
 
+tp_5 <- infection_freq_rmu_ci_iteration(1.225,c(0.05,0.8),c(0.99,0.01),0.1,10000)
+p_5 <- plot_a_simulation(tp_5,alpha_val=0.2) + ylim(c(0,1))
+
 tp_6 <- infection_freq_rf_rmu_iteration(1.2,0.1,c(0.01,0.0),c(1.0,0.0),1000)
 p_6 <- plot_a_simulation(tp_6,alpha_val=0.2) + ylim(c(0,1))
 
-(p_1 + p_2) / (p_3 + p_4)
+(p_1 + p_2) / (p_3 + p_4) / (p_5 + p_6)
 ```
 
 <img src="man/figures/README-examp_sims-1.png" width="100%" />
