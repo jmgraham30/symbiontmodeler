@@ -9,9 +9,9 @@
 
 The goal of `symbiontmodeler` is to implement various models for
 symbiont frequency dynamics. Applications to
-[wolbachia](https://en.wikipedia.org/wiki/Wolbachia) frequency dynamics
-are emphasized, but the models are general enough to be applied to other
-symbionts.
+[Wolbachia](https://www.nature.com/articles/nrmicro1969) frequency
+dynamics are emphasized, but the models may also be applied to other
+CI-causing symbionts like Cardinium.
 
 ## Installation
 
